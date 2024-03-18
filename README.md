@@ -46,12 +46,23 @@ python manage.py runserver
 ```
 
 #### Setup Django Admin (optional)
+NOTE: if you do not want to create superuser you can skip this step
 Run 
+```
+python manage.py createsuperuser
 
 ```
 
-python manage.py createsuperuser
+#### Use Below command to create 2 users from fixture
+Run 
+```
+python manage.py loaddata fixtures/users.json
+```
 
+#### Use Below command to create 10000 products using command
+Run 
+```
+python3 manage.py create_random_products
 ```
 
 #### Swagger DOCS URL
