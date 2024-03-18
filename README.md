@@ -64,7 +64,11 @@ Run
 ```
 python3 manage.py create_random_products
 ```
-
+#### Use Below command to create 100 products for each user recommendation
+Run 
+```
+python3 manage.py create_random_recommendations
+```
 #### Swagger DOCS URL
 
 [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
