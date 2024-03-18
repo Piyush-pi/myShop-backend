@@ -15,8 +15,50 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework.routers import DefaultRouter
+from rest_framework.permissions import AllowAny
+from myShop import settings
+from apps.product.views import ProductViewSet
+from apps.user.views import UserViewSet
+
+
+router = DefaultRouter()
+router.register(r'products', ProductViewSet)
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
+    path('products/', include("apps.product.urls")),
 ]
+
+
+if settings.DEBUG:
+    schema_view = get_schema_view(
+        openapi.Info(
+            title="myShop API Documentation",
+            default_version="v1",
+            description="myShop Flow"
+        ),
+        public=True,
+        permission_classes=[
+            AllowAny,
+        ],
+    )
+
+    # Serve API documentation: swagger and redoc when debug mode on
+    urlpatterns += [
+        path(
+            "swagger/",
+            schema_view.with_ui("swagger", cache_timeout=0),
+            name="schema-swagger-ui",
+        ),
+        path(
+            "redoc/",
+            schema_view.with_ui("redoc", cache_timeout=0),
+            name="schema-redoc",
+        )
+    ]
