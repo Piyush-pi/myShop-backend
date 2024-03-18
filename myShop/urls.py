@@ -21,7 +21,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework.routers import DefaultRouter
 from rest_framework.permissions import AllowAny
 from myShop import settings
-from apps.product.views import ProductViewSet
+from apps.product.views import ProductViewSet, ProductRecommendationAPIView
 from apps.user.views import UserViewSet
 
 
@@ -32,7 +32,7 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('products/', include("apps.product.urls")),
+    path('recommend/products/', ProductRecommendationAPIView.as_view(), name="product_recommend"),
 ]
 
 
